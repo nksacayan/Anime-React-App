@@ -3,7 +3,7 @@ import AnimeCarousel from "./AnimeCarousel";
 
 function MainContent() {
   return (
-    <Container fluid="md">
+    <Container>
       <AnimeCarousel />
     </Container>
   );

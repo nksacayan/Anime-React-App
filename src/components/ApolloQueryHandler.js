@@ -21,9 +21,19 @@ function ApolloQueryHandler({ id }) {
   if (loading) return `loading`;
   if (error) return `Error! ${error}`;
 
-  console.log(data);
-
-  return <p>Here</p>;
+  // return <p>{JSON.stringify(data)}</p>;
+  return (
+    <>
+      <h3>Title: {data.title}</h3>
+      <p>Description : {data.description}</p>
+      <img alt="Anime" src={data.coverImage} />
+      <p>
+        JSON:
+        <br />
+        {JSON.stringify(data)}
+      </p>
+    </>
+  );
 }
 
 export default ApolloQueryHandler;

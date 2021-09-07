@@ -27,7 +27,7 @@ function MainContent() {
     return (
       <>
         <Card className="bg-dark text-white">
-          <Card.Img src={flowers} alt="Card image" />
+          <Card.Img src={data.Media.coverImage.extraLarge} alt="Card image" />
           <Card.ImgOverlay>
             <Card.Title>{data.Media.title.english}</Card.Title>
             <Card.Text>

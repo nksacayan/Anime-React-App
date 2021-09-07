@@ -15,25 +15,13 @@ const ANIME_QUERY = gql`
   }
 `;
 
-function ApolloQueryHandler({ id }) {
+function GetApolloQuery() {
   const { loading, error, data } = useQuery(ANIME_QUERY);
 
   if (loading) return `loading`;
   if (error) return `Error! ${error}`;
 
-  // return <p>{JSON.stringify(data)}</p>;
-  return (
-    <>
-      <h3>Title: {data.title}</h3>
-      <p>Description : {data.description}</p>
-      <img alt="Anime" src={data.coverImage} />
-      <p>
-        JSON:
-        <br />
-        {JSON.stringify(data)}
-      </p>
-    </>
-  );
+  return data;
 }
 
-export default ApolloQueryHandler;
+export default GetApolloQuery;

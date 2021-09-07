@@ -3,7 +3,6 @@ import MyNavbar from "./components/Navbar";
 import MainContent from "./components/MainContent";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import ApolloQueryHandler from "./components/ApolloQueryHandler";
 
 const client = new ApolloClient({
   uri: "https://graphql.anilist.co/",
@@ -15,7 +14,6 @@ function App() {
     <ApolloProvider client={client}>
       <MyNavbar />
       <MainContent />
-      <ApolloQueryHandler />
     </ApolloProvider>
   );
 }

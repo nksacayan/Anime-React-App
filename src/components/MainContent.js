@@ -5,13 +5,19 @@ import flowers from "../images/flowers.jpg";
 
 import GetApolloQuery from "../functions/ApolloQueryHandler";
 
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+let id = 1;
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function randomizeID() {
+  id = getRandomArbitrary(1, 1000);
+  console.log(`Randomized the id to ${id}`);
 }
 
 function MainContent() {
-  let id = getRndInteger(1, 1000);
-  let data = GetApolloQuery(10);
+  let data = GetApolloQuery(id);
   console.log(data);
 
   if (data === `loading`) {
@@ -24,7 +30,9 @@ function MainContent() {
             <Card.Text>This is where the anime summary goes.</Card.Text>
             <Card.Text>Genres...</Card.Text>
           </Card.ImgOverlay>
-          <Button variant="primary">Randomize. Make this smaller lmao</Button>
+          <Button variant="primary" onChange={randomizeID}>
+            Randomize. Make this smaller lmao
+          </Button>
         </Card>
       </>
     );
@@ -40,7 +48,9 @@ function MainContent() {
             </Card.Text>
             <Card.Text></Card.Text>
           </Card.ImgOverlay>
-          <Button variant="primary">Randomize. Make this smaller lmao</Button>
+          <Button variant="primary" onChange={randomizeID}>
+            Randomize. Make this smaller lmao
+          </Button>
         </Card>
       </>
     );
@@ -56,7 +66,9 @@ function MainContent() {
             </Card.Text>
             <Card.Text>{data.Media.genres.join(", ")}</Card.Text>
           </Card.ImgOverlay>
-          <Button variant="primary">Randomize. Make this smaller lmao</Button>
+          <Button variant="primary" onChange={randomizeID}>
+            Randomize. Make this smaller lmao
+          </Button>
         </Card>
       </>
     );

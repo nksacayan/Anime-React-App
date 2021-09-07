@@ -20,8 +20,7 @@ function GetApolloQuery(id) {
 
   if (loading) return `loading`;
   if (error) {
-    console.error(error);
-    return `Error!`;
+    return `Error! ${error.message} for id: ${id}`;
   }
 
   return data;

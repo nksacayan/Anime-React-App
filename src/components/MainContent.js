@@ -5,8 +5,13 @@ import flowers from "../images/flowers.jpg";
 
 import GetApolloQuery from "../functions/ApolloQueryHandler";
 
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function MainContent() {
-  let data = GetApolloQuery(25);
+  let id = getRndInteger(1, 1000);
+  let data = GetApolloQuery(10);
   console.log(data);
 
   if (data === `loading`) {
@@ -23,7 +28,7 @@ function MainContent() {
         </Card>
       </>
     );
-  } else if (data === `Error!`) {
+  } else if (typeof data === "string" && data.includes("Error")) {
     return (
       <>
         <Card className="bg-dark text-white">

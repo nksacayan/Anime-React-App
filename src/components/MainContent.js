@@ -30,8 +30,10 @@ function MainContent() {
           <Card.Img src={flowers} alt="Card image" />
           <Card.ImgOverlay>
             <Card.Title>{data.Media.title.english}</Card.Title>
-            <Card.Text>{data.Media.description}</Card.Text>
-            <Card.Text></Card.Text>
+            <Card.Text>
+              {data.Media.description.replaceAll("<br>", "")}
+            </Card.Text>
+            <Card.Text>{data.Media.genres.join(", ")}</Card.Text>
           </Card.ImgOverlay>
           <Button variant="primary">Randomize. Make this smaller lmao</Button>
         </Card>

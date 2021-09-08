@@ -35,9 +35,13 @@ function MainContent() {
   const [id, setID] = useState(1);
   const { loading, error, data } = useQuery(ANIME_QUERY, { variables: { id } });
 
+  // Re-randomize ID if anime not found
   useEffect(() => {
     console.log(id);
-  });
+    if (error) {
+      setID(getRandomInt(MIN, MAX));
+    }
+  }, [id, error]);
 
   if (loading) {
     return <AnimeCardLoading />;

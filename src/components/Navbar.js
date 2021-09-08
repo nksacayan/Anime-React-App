@@ -7,7 +7,7 @@ function MyNavbar() {
   return (
     <Navbar variant="dark" bg="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Anime of the Week</Navbar.Brand>
+        <Navbar.Brand href="#home">Pick My Anime</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

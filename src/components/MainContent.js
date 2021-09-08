@@ -43,42 +43,30 @@ function MainContent() {
     }
   }, [id, error]);
 
+  let animeCard;
   if (loading) {
     return <AnimeCardLoading />;
   } else if (error) {
-    return (
-      <>
-        <AnimeCardError />
-        <Button
-          variant="primary"
-          onClick={() => {
-            let randomID = getRandomInt(MIN, MAX);
-            console.log("Random id = " + randomID);
-            setID(randomID);
-            console.log("Randomized id to: " + id);
-          }}
-        >
-          Primary
-        </Button>
-      </>
-    );
+    animeCard = <AnimeCardError />;
   } else {
-    return (
-      <>
-        <AnimeCardSuccess data={data} />
-        <Button
-          variant="primary"
-          onClick={() => {
-            let randomID = getRandomInt(MIN, MAX);
-            console.log("Random id = " + randomID);
-            setID(randomID);
-            console.log("Randomized id to: " + id);
-          }}
-        >
-          Primary
-        </Button>
-      </>
-    );
+    animeCard = <AnimeCardSuccess data={data} />;
   }
+
+  return (
+    <>
+      {animeCard}
+      <Button
+        variant="primary"
+        onClick={() => {
+          let randomID = getRandomInt(MIN, MAX);
+          console.log("Random id = " + randomID);
+          setID(randomID);
+          console.log("Randomized id to: " + id);
+        }}
+      >
+        Primary
+      </Button>
+    </>
+  );
 }
 export default MainContent;

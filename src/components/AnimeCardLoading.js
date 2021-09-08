@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 import flowers from "../images/flowers.jpg";
@@ -8,11 +7,10 @@ function AnimeCardLoading() {
     <Card className="bg-dark text-white">
       <Card.Img src={flowers} alt="Card image" />
       <Card.ImgOverlay>
-        <Card.Title>Title</Card.Title>
-        <Card.Text>This is where the anime summary goes.</Card.Text>
-        <Card.Text>Genres...</Card.Text>
+        <Card.Title>Loading</Card.Title>
+        <Card.Text></Card.Text>
+        <Card.Text></Card.Text>
       </Card.ImgOverlay>
-      <Button variant="primary">Randomize. Make this smaller lmao</Button>
     </Card>
   );
 }

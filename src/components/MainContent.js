@@ -1,46 +1,45 @@
+import React, { useState, useEffect } from "react";
+import { gql, useQuery } from "@apollo/client";
+
 import AnimeCardError from "./AnimeCardError";
 import AnimeCardLoading from "./AnimeCardLoading";
 import AnimeCardSuccess from "./AnimeCardSuccess";
 
 import Button from "react-bootstrap/Button";
 
-import GetApolloQuery from "../functions/ApolloQueryHandler";
-
-let id = 1;
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
-function randomizeID() {
-  id = getRandomInt(1, 1000);
-  console.log(`Randomized the id to ${id}`);
-}
+const ANIME_QUERY = gql`
+  query AnimeQuery($id: Int) {
+    Media(id: $id, type: ANIME, format: TV) {
+      title {
+        english
+      }
+      description
+      genres
+      coverImage {
+        extraLarge
+      }
+    }
+  }
+`;
 
 function MainContent() {
-  let data = GetApolloQuery(id);
-  console.log(data);
+  const [id, setID] = useState(1);
+  const { loading, error, data } = useQuery(ANIME_QUERY, { variables: { id } });
 
-  if (data === `loading`) {
+  if (loading) {
     return <AnimeCardLoading />;
-  } else if (typeof data === "string" && data.includes("Error")) {
+  } else if (error) {
     return (
       <>
         <AnimeCardError />
-        <Button variant="primary" onClick={randomizeID}>
-          Primary
-        </Button>
+        <Button variant="primary">Primary</Button>
       </>
     );
   } else {
     return (
       <>
         <AnimeCardSuccess data={data} />
-        <Button variant="primary" onClick={randomizeID}>
-          Primary
-        </Button>
+        <Button variant="primary">Primary</Button>
       </>
     );
   }

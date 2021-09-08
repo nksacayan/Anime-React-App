@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 import flowers from "../images/flowers.jpg";
@@ -12,7 +11,6 @@ function AnimeCardError() {
         <Card.Text>This anime couldn't be found. Please try again.</Card.Text>
         <Card.Text></Card.Text>
       </Card.ImgOverlay>
-      <Button variant="primary">Randomize. Make this smaller lmao</Button>
     </Card>
   );
 }

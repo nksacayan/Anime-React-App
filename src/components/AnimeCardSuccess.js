@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 function AnimeCardSuccess({ data }) {
@@ -10,7 +9,6 @@ function AnimeCardSuccess({ data }) {
         <Card.Text>{data.Media.description.replaceAll("<br>", "")}</Card.Text>
         <Card.Text>{data.Media.genres.join(", ")}</Card.Text>
       </Card.ImgOverlay>
-      <Button variant="primary">Randomize. Make this smaller lmao</Button>
     </Card>
   );
 }

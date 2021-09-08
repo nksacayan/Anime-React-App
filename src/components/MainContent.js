@@ -22,9 +22,22 @@ const ANIME_QUERY = gql`
   }
 `;
 
+const MIN = 1;
+const MAX = 1000;
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
 function MainContent() {
   const [id, setID] = useState(1);
   const { loading, error, data } = useQuery(ANIME_QUERY, { variables: { id } });
+
+  useEffect(() => {
+    console.log(id);
+  });
 
   if (loading) {
     return <AnimeCardLoading />;
@@ -32,14 +45,34 @@ function MainContent() {
     return (
       <>
         <AnimeCardError />
-        <Button variant="primary">Primary</Button>
+        <Button
+          variant="primary"
+          onClick={() => {
+            let randomID = getRandomInt(MIN, MAX);
+            console.log("Random id = " + randomID);
+            setID(randomID);
+            console.log("Randomized id to: " + id);
+          }}
+        >
+          Primary
+        </Button>
       </>
     );
   } else {
     return (
       <>
         <AnimeCardSuccess data={data} />
-        <Button variant="primary">Primary</Button>
+        <Button
+          variant="primary"
+          onClick={() => {
+            let randomID = getRandomInt(MIN, MAX);
+            console.log("Random id = " + randomID);
+            setID(randomID);
+            console.log("Randomized id to: " + id);
+          }}
+        >
+          Primary
+        </Button>
       </>
     );
   }

@@ -54,16 +54,31 @@ function MainContent() {
 
   let animeCard;
   if (loading) {
-    animeCard = <AnimeDisplay animeTitle={"Loading"} />;
+    animeCard = (
+      <AnimeDisplay
+        animeTitle={"Loading"}
+        animeDescription={
+          "If this takes too long try refreshing, my random search isn't great"
+        }
+      />
+    );
   } else if (error) {
     animeCard = <AnimeDisplay buttonJSX={buttonJSX} />;
   } else {
     animeCard = (
       <AnimeDisplay
         animeImage={data.Media.coverImage.extraLarge}
-        animeTitle={data.Media.title.english}
-        animeDescription={data.Media.description.replaceAll("<br>", "")}
-        animeGenres={data.Media.genres.join(", ")}
+        animeTitle={
+          data.Media.title.english ? data.Media.title.english : "No title found"
+        }
+        animeDescription={
+          data.Media.description
+            ? data.Media.description.replaceAll("<br>", "")
+            : "No description found"
+        }
+        animeGenres={
+          data.Media.genres ? data.Media.genres.join(", ") : "No genres found"
+        }
         buttonJSX={buttonJSX}
       />
     );

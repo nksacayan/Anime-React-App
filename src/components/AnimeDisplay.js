@@ -16,14 +16,12 @@ function AnimeDisplay({
       <Container>
         <Row>
           <Col>
-            <Image src={animeImage} alt="Anime Cover" />
+            <Image src={animeImage} alt="Anime Cover" fluid />
           </Col>
           <Col>
             <Card>
               <Card.Body>
-                <Card.Title>
-                  {animeTitle ? animeTitle : "Title not found :("}
-                </Card.Title>
+                <Card.Title>{animeTitle}</Card.Title>
                 <Card.Text>{animeDescription}</Card.Text>
                 <Card.Text>{animeGenres}</Card.Text>
               </Card.Body>

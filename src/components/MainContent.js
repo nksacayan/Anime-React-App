@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import AnimeCardError from "./AnimeCardError";
 import AnimeCardLoading from "./AnimeCardLoading";
-import AnimeCardSuccess from "./AnimeCardSuccess";
+import AnimeDisplay from "./AnimeDisplay";
 
 import Button from "react-bootstrap/Button";
 
@@ -43,30 +43,38 @@ function MainContent() {
     }
   }, [id, error]);
 
+  let buttonJSX = (
+    <Button
+      variant="primary"
+      onClick={() => {
+        let randomID = getRandomInt(MIN, MAX);
+        console.log("Random id = " + randomID);
+        setID(randomID);
+        console.log("Randomized id to: " + id);
+      }}
+    >
+      Primary
+    </Button>
+  );
+
   let animeCard;
   if (loading) {
     return <AnimeCardLoading />;
   } else if (error) {
     animeCard = <AnimeCardError />;
   } else {
-    animeCard = <AnimeCardSuccess data={data} />;
+    console.log(data);
+    animeCard = (
+      <AnimeDisplay
+        animeImage={data.Media.coverImage.extraLarge}
+        animeTitle={data.Media.title.english}
+        animeDescription={data.Media.description.replaceAll("<br>", "")}
+        animeGenres={data.Media.genres.join(", ")}
+        buttonJSX={buttonJSX}
+      />
+    );
   }
 
-  return (
-    <>
-      {animeCard}
-      <Button
-        variant="primary"
-        onClick={() => {
-          let randomID = getRandomInt(MIN, MAX);
-          console.log("Random id = " + randomID);
-          setID(randomID);
-          console.log("Randomized id to: " + id);
-        }}
-      >
-        Primary
-      </Button>
-    </>
-  );
+  return <>{animeCard}</>;
 }
 export default MainContent;

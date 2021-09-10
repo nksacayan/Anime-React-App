@@ -16,7 +16,7 @@ function AnimeDisplay({
       <Container>
         <Row className="align-items-center">
           <Col>
-            <Image src={animeImage} alt="Anime Cover" width="90%" />
+            <Image src={animeImage} alt="Anime Cover" width="85%" thumbnail />
           </Col>
           <Col>
             <Card>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
 
-import AnimeCardError from "./AnimeCardError";
-import AnimeCardLoading from "./AnimeCardLoading";
 import AnimeDisplay from "./AnimeDisplay";
 
 import Button from "react-bootstrap/Button";
@@ -23,7 +21,7 @@ const ANIME_QUERY = gql`
 `;
 
 const MIN = 1;
-const MAX = 1000;
+const MAX = 16000;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -37,7 +35,6 @@ function MainContent() {
 
   // Re-randomize ID if anime not found
   useEffect(() => {
-    console.log(id);
     if (error) {
       setID(getRandomInt(MIN, MAX));
     }
@@ -48,9 +45,7 @@ function MainContent() {
       variant="primary"
       onClick={() => {
         let randomID = getRandomInt(MIN, MAX);
-        console.log("Random id = " + randomID);
         setID(randomID);
-        console.log("Randomized id to: " + id);
       }}
     >
       Primary
@@ -59,11 +54,10 @@ function MainContent() {
 
   let animeCard;
   if (loading) {
-    return <AnimeCardLoading />;
+    animeCard = <AnimeDisplay animeTitle={"Loading"} />;
   } else if (error) {
-    animeCard = <AnimeCardError />;
+    animeCard = <AnimeDisplay buttonJSX={buttonJSX} />;
   } else {
-    console.log(data);
     animeCard = (
       <AnimeDisplay
         animeImage={data.Media.coverImage.extraLarge}

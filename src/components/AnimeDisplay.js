@@ -21,7 +21,9 @@ function AnimeDisplay({
           <Col>
             <Card>
               <Card.Body>
-                <Card.Title>{animeTitle}</Card.Title>
+                <Card.Title>
+                  {animeTitle ? animeTitle : "Title not found :("}
+                </Card.Title>
                 <Card.Text>{animeDescription}</Card.Text>
                 <Card.Text>{animeGenres}</Card.Text>
               </Card.Body>

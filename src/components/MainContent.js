@@ -1,27 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 
 import AnimeDisplay from "./AnimeDisplay";
 
 import Button from "react-bootstrap/Button";
 
-const ANIME_QUERY = gql`
-  query AnimeQuery($id: Int) {
-    Media(id: $id, type: ANIME, format: TV) {
-      title {
-        english
+const RANDOM_ANIME_QUERY = gql`
+  query RandomAnimeQuery($random: Int) {
+    Page(page: $random, perPage: 1) {
+      pageInfo {
+        total
       }
-      description
-      genres
-      coverImage {
-        extraLarge
+      media(
+        type: ANIME
+        isAdult: false
+        status_not: NOT_YET_RELEASED
+        format: TV
+      ) {
+        id
+        title {
+          english
+        }
+        description
+        genres
+        coverImage {
+          extraLarge
+        }
       }
     }
   }
 `;
+// Link to discord convo
+// https://discord.com/channels/210521487378087947/281216402684116993/807678363250589759
+// you run this once without passing a random variable. You take the value of pageInfo.total,
+// generate a random number with that as the upper bound, you run the same query again,
+// but pass your random number as the random variable, you take the Page.media[0] value as your random anime.
 
 const MIN = 1;
-const MAX = 15000;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -31,20 +46,17 @@ function getRandomInt(min, max) {
 
 function MainContent() {
   const [id, setID] = useState(1);
-  const { loading, error, data } = useQuery(ANIME_QUERY, { variables: { id } });
-
-  // Re-randomize ID if anime not found
-  useEffect(() => {
-    if (error) {
-      setID(getRandomInt(MIN, MAX));
-    }
-  }, [id, error]);
+  const [idMax, setIDMax] = useState(3);
+  const { loading, error, data } = useQuery(RANDOM_ANIME_QUERY, {
+    variables: { random: id },
+  });
 
   let buttonJSX = (
     <Button
       variant="primary"
       onClick={() => {
-        let randomID = getRandomInt(MIN, MAX);
+        setIDMax(data.Page.pageInfo.total);
+        let randomID = getRandomInt(MIN, idMax);
         setID(randomID);
       }}
     >
@@ -65,19 +77,24 @@ function MainContent() {
   } else if (error) {
     animeCard = <AnimeDisplay buttonJSX={buttonJSX} />;
   } else {
+    console.log(data);
     animeCard = (
       <AnimeDisplay
-        animeImage={data.Media.coverImage.extraLarge}
+        animeImage={data.Page.media[0].coverImage.extraLarge}
         animeTitle={
-          data.Media.title.english ? data.Media.title.english : "No title found"
+          data.Page.media[0].title.english
+            ? data.Page.media[0].title.english
+            : "No title found"
         }
         animeDescription={
-          data.Media.description
-            ? data.Media.description.replaceAll("<br>", "")
+          data.Page.media[0].description
+            ? data.Page.media[0].description.replaceAll("<br>", "")
             : "No description found"
         }
         animeGenres={
-          data.Media.genres ? data.Media.genres.join(", ") : "No genres found"
+          data.Page.media[0].genres
+            ? data.Page.media[0].genres.join(", ")
+            : "No genres found"
         }
         buttonJSX={buttonJSX}
       />

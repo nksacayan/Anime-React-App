@@ -16,7 +16,7 @@ function AnimeDisplay({
       <Container>
         <Row>
           <Col>
-            <Image src={animeImage} alt="Anime Cover" fluid />
+            <Image src={animeImage} alt="Anime Cover" width="90%" />
           </Col>
           <Col>
             <Card>

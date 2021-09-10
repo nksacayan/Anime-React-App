@@ -21,7 +21,7 @@ const ANIME_QUERY = gql`
 `;
 
 const MIN = 1;
-const MAX = 16000;
+const MAX = 15000;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -48,7 +48,7 @@ function MainContent() {
         setID(randomID);
       }}
     >
-      Primary
+      Find Another Anime
     </Button>
   );
 
